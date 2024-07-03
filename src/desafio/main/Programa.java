@@ -15,6 +15,7 @@ public class Programa {
 		ArrayList<Abrigo> trustedShelters = new ArrayList<>();
 
 		// Variaveis para a interface textual
+		int list = -1;
 		int entry = -1;
 		int cont = -1;
 		int managertab = -1;
@@ -38,9 +39,13 @@ public class Programa {
 		// Interface textual
 		while (entry != 0) {
 
-			System.out.println("---------x-x-x---------");
-			System.out.println("Oque voce eh ?\n 1 - Gerente \n 2 - Centro de Dis. \n 3 - Abrigo  \n 0 - Sair ");
-			System.out.println("---------x-x-x---------");
+			System.out.println("---------x-x-x---------\n"
+					+ "Oque voce eh ?\n "
+					+ "1 - Gerente \n "
+					+ "2 - Centro de Dis. \n "
+					+ "3 - Abrigo  \n "
+					+ "0 - Sair \n"
+					+ "---------x-x-x---------");
 
 			entry = sc.nextInt();
 			sc.nextLine();
@@ -51,10 +56,14 @@ public class Programa {
 			// AREA DO GERENTE
 			case 1:
 				cont = -1;
-				System.out.println("---------x-x-x---------");
-				System.out.println(
-						"Oque pretendes fazer ?\n 1 - Adicionar abrigo \n 2 - Autorizar abrigo \n 3 - Recusar abrigo \n 3 - Ver abrigos \n 0 - Sair ");
-				System.out.println("---------x-x-x---------");
+				System.out.println("---------x-x-x---------\n"
+						+ "Oque pretendes fazer ?\n "
+						+ "1 - Adicionar abrigo \n "
+						+ "2 - Autorizar abrigo \n "
+						+ "3 - Recusar abrigo \n "
+						+ "4 - Ver abrigos \n "
+						+ "0 - Sair \n"
+						+ "---------x-x-x---------");
 
 				managertab = sc.nextInt();
 
@@ -70,46 +79,46 @@ public class Programa {
 						Integer shelterCapacity = null;
 						Integer shelterOccupied = null;
 
-						System.out.println("---------x-x-x---------");
-						System.out.println("Digite o nome do abrigo");
-						System.out.println("---------x-x-x---------");
+						System.out.println("---------x-x-x---------/n"
+								+ "Digite o nome do abrigo/n"
+								+ "---------x-x-x---------");
 
 						sc.nextLine();
 						shelterName = sc.nextLine();
 
-						System.out.println("------------x-x-x------------");
-						System.out.println("Digite o endereço do abrigo");
-						System.out.println("------------x-x-x------------");
+						System.out.println("------------x-x-x------------\n"
+								+ "Digite o endereço do abrigo\n"
+								+ "------------x-x-x------------");
 
 						shelterAddress = sc.nextLine();
 
-						System.out.println("--------------x-x-x--------------");
-						System.out.println("Digite o responsavel do abrigo");
-						System.out.println("--------------x-x-x--------------");
+						System.out.println("--------------x-x-x--------------\n"
+								+ "Digite o responsavel do abrigo\n"
+								+ "--------------x-x-x--------------");
 
 						shelterManager = sc.nextLine();
 
-						System.out.println("------------x-x-x------------");
-						System.out.println("Digite o telefone do abrigo");
-						System.out.println("------------x-x-x------------");
+						System.out.println("------------x-x-x------------\n"
+								+ "Digite o telefone do abrigo\n"
+								+ "------------x-x-x------------");
 
 						shelterPhone = sc.nextLine();
 
-						System.out.println("----------x-x-x----------");
-						System.out.println("Digite o email do abrigo");
-						System.out.println("----------x-x-x----------");
+						System.out.println("----------x-x-x----------/n"
+								+ "Digite o email do abrigo/n"
+								+ "----------x-x-x----------");
 
 						shelterEmail = sc.nextLine();
 
-						System.out.println("-------------x-x-x-------------");
-						System.out.println("Digite a capacidade do abrigo");
-						System.out.println("-------------x-x-x-------------");
+						System.out.println("-------------x-x-x-------------/n"
+								+ "Digite a capacidade do abrigo/n"
+								+ "-------------x-x-x-------------");
 
 						shelterCapacity = sc.nextInt();
 
-						System.out.println("-----------x-x-x-----------");
-						System.out.println("Digite a ocupaçao do abrigo");
-						System.out.println("-----------x-x-x-----------");
+						System.out.println("-----------x-x-x-----------/n"
+								+ "Digite a ocupaçao do abrigo/n"
+								+ "-----------x-x-x-----------");
 
 						shelterOccupied = sc.nextInt();
 
@@ -117,14 +126,17 @@ public class Programa {
 								shelterCapacity, shelterOccupied);
 						toAddShelters.add(a);
 
-						System.out.println("------------------------x-x-x------------------------");
-						System.out.println("As informacoes enviadas serao verificadas, Obrigado.");
-						System.out.println("------------------------x-x-x------------------------");
+						System.out.println("------------------------x-x-x------------------------\n"
+								+ "As informacoes enviadas serao verificadas, Obrigado.\n"
+								+ "------------------------x-x-x------------------------");
+
 
 						// Repetir
-						System.out.println("---------x-x-x---------");
-						System.out.println("Desejas adicionar mais?\n 1 - Sim \n 0 - Nao");
-						System.out.println("---------x-x-x---------");
+						System.out.println("---------x-x-x---------\n"
+								+ "Desejas adicionar mais?\n "
+								+ "1 - Sim \n "
+								+ "0 - Nao\n"
+								+ "---------x-x-x---------");
 
 						cont = sc.nextInt();
 
@@ -135,10 +147,11 @@ public class Programa {
 
 					while (cont != 0) {
 						cont = -1;
-						Integer list = 0;
-						System.out.println("------------------x-x-x------------------");
-						System.out.println("Qual desses abrigos pretendes autorizar?");
-						System.out.println("------------------x-x-x------------------");
+						list = 0;
+						System.out.println("------------------x-x-x------------------\n"
+								+ "Qual desses abrigos pretendes autorizar?\n"
+								+ "------------------x-x-x------------------");
+
 
 						for (Abrigo s : toAddShelters) {
 							list += 1;
@@ -152,9 +165,11 @@ public class Programa {
 						toAddShelters.remove(selectedShelter - 1);
 
 						// Repetir
-						System.out.println("---------x-x-x---------");
-						System.out.println("Desejas autorizar mais?\n 1 - Sim \n 0 - Nao");
-						System.out.println("---------x-x-x---------");
+						System.out.println("---------x-x-x---------\n"
+								+ "Desejas autorizar mais?\n "
+								+ "1 - Sim \n "
+								+ "0 - Nao\n"
+								+ "---------x-x-x---------");
 
 						cont = sc.nextInt();
 					}
@@ -163,10 +178,11 @@ public class Programa {
 				case 3:
 					while (cont != 0) {
 
-						Integer list = 0;
-						System.out.println("------------------x-x-x------------------");
-						System.out.println("Qual desses abrigos pretendes recusar?");
-						System.out.println("------------------x-x-x------------------");
+						list = 0;
+						System.out.println("------------------x-x-x------------------\n"
+								+ "Qual desses abrigos pretendes recusar?\n"
+								+ "------------------x-x-x------------------");
+
 
 						for (Abrigo s : toAddShelters) {
 							list += 1;
@@ -179,9 +195,11 @@ public class Programa {
 						toAddShelters.remove(selectedShelter - 1);
 
 						// Repetir
-						System.out.println("---------x-x-x---------");
-						System.out.println("Desejas recusar mais?\n 1 - Sim \n 0 - Nao");
-						System.out.println("---------x-x-x---------");
+						System.out.println("---------x-x-x---------\n"
+								+ "Desejas recusar mais?\n "
+								+ "1 - Sim \n "
+								+ "0 - Nao\n"
+								+ "---------x-x-x---------");
 
 						cont = sc.nextInt();
 					}
@@ -189,25 +207,25 @@ public class Programa {
 					// Checar a lista de abrigos autorizados e a serem autorizados
 				case 4:
 
-					Integer list2 = 0;
+					list = 0;
 
-					System.out.println("-----------x-x-x------------");
-					System.out.println("Abrigos a serem autorizados");
-					System.out.println("-----------x-x-x------------");
+					System.out.println("-----------x-x-x------------\n"
+							+ "Abrigos a serem autorizados\n"
+							+ "-----------x-x-x------------");
 
 					for (Abrigo s : toAddShelters) {
-						list2 += 1;
-						System.out.println(list2 + " - " + s);
+						list += 1;
+						System.out.println(list + " - " + s);
 					}
 
-					list2 = 0;
-					System.out.println("--------x-x-x--------");
-					System.out.println("Abrigos a autorizados");
-					System.out.println("--------x-x-x--------");
+					list = 0;
+					System.out.println("--------x-x-x--------\n"
+							+ "Abrigos a autorizados\n"
+							+ "--------x-x-x--------");
 
 					for (Abrigo s : trustedShelters) {
-						list2 += 1;
-						System.out.println(list2 + " - " + s);
+						list += 1;
+						System.out.println(list + " - " + s);
 					}
 					break;
 
@@ -216,11 +234,11 @@ public class Programa {
 			//ABA CENTRO DE DISTRIBUICAO
 			case 2:
 
-				Integer list = 0;
+				list = 0;
 
-				System.out.println("------------x-x-x------------");
-				System.out.println("Qual centro de distribuicao ?");
-				System.out.println("------------x-x-x------------");
+				System.out.println("------------x-x-x------------\n"
+						+ "Qual centro de distribuicao ?"
+						+ "\n------------x-x-x-----------");
 
 				for (CentroDistribuicao s : centers) {
 					list += 1;
@@ -230,67 +248,58 @@ public class Programa {
 				Integer selectedCenter = sc.nextInt();
 
 				cont = -1;
-				System.out.println("---------x-x-x---------");
-				System.out.println(
-						"Oque pretendes fazer ?\n 1 - Receber lote \n 2 - Autorizar pedido \n 3 - Recusar pedido \n 3 - Ver pedidos \n 0 - Sair ");
-				System.out.println("---------x-x-x---------");
+				System.out.println("---------x-x-x---------\n"
+						+ "Oque pretendes fazer ?\n "
+						+ "1 - Receber lote \n "
+						+ "2 - Autorizar pedido \n "
+						+ "3 - Recusar pedido \n "
+						+ "4  - Ver pedidos \n "
+						+ "0 - Sair \n"
+						+ "---------x-x-x---------");
 
-				managertab = sc.nextInt();
+				centertab = sc.nextInt();
 
 				switch (centertab) {
 				case 1:
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quantos saboes ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addSoap(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quantas escovas ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addBrush(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quantas pastas ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addToothpaste(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quantos absorventes ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addTampon(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quanto arroz ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addRice(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quanto feijao ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addBean(sc.nextInt());
-
-					System.out.println("------x-x-x------");
-					System.out.println("Quanto leite ?");
-					System.out.println("------x-x-x------");
-
-					centers.get(selectedCenter - 1).addMilk(sc.nextInt());
+					
+					centers.get(selectedCenter - 1).addItems();
 
 					break;
 				case 2:
 
 				}
-			//ABA ABRIGO
+			break;
 			case 3:
+				Integer thislist = 0;
 
+				System.out.println("------------x-x-x------------\n"
+						+ "Qual centro de distribuicao ?\n"
+						+ "------------x-x-x------------");
+
+
+				for (CentroDistribuicao s : centers) {
+					list += 1;
+					System.out.println(list + " - " + s);
+				}
+
+				Integer selectedShelter = sc.nextInt();
+
+				cont = -1;
+				System.out.println("---------x-x-x---------\n"
+						+ "Oque pretendes fazer ?\n "
+						+ "1 - Receber lote \n "
+						+ "2 - Autorizar pedido \n "
+						+ "3 - Recusar pedido \n "
+						+ "3 - Ver pedidos \n"
+						+ " 0 - Sair \n"
+						+ "---------x-x-x---------");
+
+				managertab = sc.nextInt();
+
+				switch (centertab) {}
+				
 			}
 		}
 		sc.close();
 	}
-}
+	}

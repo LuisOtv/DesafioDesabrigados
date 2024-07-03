@@ -1,5 +1,12 @@
 package desafio.entities;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import desafio.products.Agasalho;
+import desafio.products.Alimento;
+import desafio.products.Camisa;
+
 public class CentroDistribuicao {
 
 	// Informacoes gerais
@@ -15,12 +22,11 @@ public class CentroDistribuicao {
 	Integer toothpaste = 0;
 	Integer tampon = 0;
 
-	Integer rice = 0;
-	Integer bean = 0;
-	Integer milk = 0;
+	ArrayList<Alimento> food = new ArrayList<>();
+	ArrayList<Camisa> shirt = new ArrayList<>();;
+	ArrayList<Agasalho> hoodie = new ArrayList<>();
 
-	public CentroDistribuicao() {
-	}
+	public CentroDistribuicao() {}
 
 	public CentroDistribuicao(String name, String address, Integer number, String state, Integer cep) {
 		this.name = name;
@@ -35,119 +41,87 @@ public class CentroDistribuicao {
 		return name + "\n";
 	}
 
-	public void addSoap(int s) {
+	public void addItems() {
 		
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("----x-x-x----\nQuanto Sabao?\n----x-x-x----");
 		
+		Integer ammount = sc.nextInt();
 		
-		if (soap + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + soap);
-
-		} else {
-
-			soap += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + soap);
-
+		if(ammount + soap > 1000) {
+			
+			System.out.println("Ultrapassa a quantidade limite, produto NAO adicionado. (" + soap + "/1000)");
+			
+		}else {
+			
+			soap += ammount;
+			
 		}
 
-	}
-
-	public void addBrush(int s) {
+		System.out.println("----x-x-x----\nQuanta escova?\n----x-x-x----");
 		
+		ammount = sc.nextInt();
 		
-
-		if (brush + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + brush);
-
-		} else {
-
-			brush += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + brush);
-
+		if(ammount + brush > 1000) {
+			
+			System.out.println("Ultrapassa a quantidade limite, produto NAO adicionado. (" + brush + "/1000)");
+			
+		}else {
+			
+			brush += ammount;
+			
+		}
+		
+		System.out.println("----x-x-x----\nQuanta pasta?\n----x-x-x----");
+		
+		ammount = sc.nextInt();
+		
+		if(ammount + toothpaste > 1000) {
+			
+			System.out.println("Ultrapassa a quantidade limite, produto NAO adicionado. (" + toothpaste + "/1000)");
+			
+		}else {
+			
+			toothpaste += ammount;
+			
 		}
 
-	}
-
-	public void addToothpaste(int s) {
-
+		System.out.println("----x-x-x----\nQuanto absorvente?\n----x-x-x----");
 		
+		ammount = sc.nextInt();
 		
-		if (toothpaste + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + toothpaste);
-
-		} else {
-
-			toothpaste += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + toothpaste);
-
+		if(ammount + tampon > 1000) {
+			
+			System.out.println("Ultrapassa a quantidade limite, produto NAO adicionado. (" + tampon + "/1000)");
+			
+		}else {
+			
+			tampon += ammount;
+			
 		}
-
-	}
-	
-	public void addTampon(int s) {
 		
+		String foodQuantity;
+		String foodMeasure;
+		String foodExpiration;
 		
-		if (tampon + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + tampon);
-
-		} else {
-
-			tampon += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + tampon);
-
-		}
-
-	}
-
-	public void addRice(int s) {
+		System.out.println("----x-x-x----\nQuanto alimento?\n----x-x-x----");
 		
+		foodQuantity = sc.nextLine();
 		
-		if (rice + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + rice);
-
-		} else {
-
-			rice += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + rice);
-
-		}
-
-	}
-
-	public void addBean(int s) {
+		System.out.println("----x-x-x----\nQual medida?\n----x-x-x----");
 		
+		foodMeasure = sc.nextLine();
 		
-		if (bean + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + bean);
-
-		} else {
-
-			bean += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + bean);
-
-		}
-
-	}
-
-	public void addMilk(int s) {
+		System.out.println("----x-x-x----\nQual validade (dd/MM/yyyy)?\n----x-x-x----");
 		
-
-		if (milk + s > 1000) {
-
-			System.out.println("INVALIDO - PASSA DO LIMITE DE 1000, QUANTIDADE ATUAL : " + milk);
-
-		} else {
-
-			milk += s;
-			System.out.println("ENVIADO - QUANTIDADE ATUAL : " + milk);
-
-		}
-
+		foodExpiration = sc.nextLine();
+		
+		Alimento a = new Alimento(foodQuantity, foodMeasure, foodExpiration);
+		
+		food.add(a);
+		
+		sc.close();
 	}
 
 }
