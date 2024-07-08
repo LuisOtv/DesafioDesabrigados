@@ -13,11 +13,13 @@ public class Pedido {
 	Abrigo shelter;
 	
 	ArrayList<Alimento> food = new ArrayList<>();
-	ArrayList<Camisa> shirt = new ArrayList<>();
-	ArrayList<Agasalho> hoodie = new ArrayList<>();
+	ArrayList<Roupa> shirt = new ArrayList<>();
+	ArrayList<Roupa> hoodie = new ArrayList<>();
+	
+	public Pedido() {}
 	
 	public Pedido(Integer soap, Integer brush, Integer toothpaste, Integer tampon, Abrigo shelter,
-			ArrayList<Alimento> food, ArrayList<Camisa> shirt, ArrayList<Agasalho> hoodie) {
+			ArrayList<Alimento> food, ArrayList<Roupa> shirt, ArrayList<Roupa> hoodie) {
 		super();
 		this.soap = soap;
 		this.brush = brush;
@@ -29,10 +31,74 @@ public class Pedido {
 		this.hoodie = hoodie;
 	}
 
+	public Integer getSoap() {
+		return soap;
+	}
+
+	public void setSoap(Integer soap) {
+		this.soap = soap;
+	}
+
+	public Integer getBrush() {
+		return brush;
+	}
+
+	public void setBrush(Integer brush) {
+		this.brush = brush;
+	}
+
+	public Integer getToothpaste() {
+		return toothpaste;
+	}
+
+	public void setToothpaste(Integer toothpaste) {
+		this.toothpaste = toothpaste;
+	}
+
+	public Integer getTampon() {
+		return tampon;
+	}
+
+	public void setTampon(Integer tampon) {
+		this.tampon = tampon;
+	}
+
+	public Abrigo getShelter() {
+		return shelter;
+	}
+
+	public void setShelter(Abrigo shelter) {
+		this.shelter = shelter;
+	}
+
+	public ArrayList<Alimento> getFood() {
+		return food;
+	}
+
+	public void setFood(ArrayList<Alimento> food) {
+		this.food = food;
+	}
+
+	public ArrayList<Roupa> getShirt() {
+		return shirt;
+	}
+
+	public void setShirt(ArrayList<Roupa> shirt) {
+		this.shirt = shirt;
+	}
+
+	public ArrayList<Roupa> getHoodie() {
+		return hoodie;
+	}
+
+	public void setHoodie(ArrayList<Roupa> hoodie) {
+		this.hoodie = hoodie;
+	}
+
 	@Override
 	public String toString() {
-		return "PEDIDO DO ABRIGO :"+ shelter +"\n ITENS: Sabão" + soap + ", Escova: " + brush + ", Pasta: " + toothpaste + ", Absorvente: " + tampon
-				+ ", Comida: " + food + ", Camisa: " + shirt + ", Agasalho: " + hoodie;
+		return "Pedido = Sabao:" + soap + ", Escova: " + brush + ", Pasta: " + toothpaste + ", Absorvente: " + tampon
+				+ ", Abrigo: " + shelter + ", Comida: " + food + ", Camisa: " + shirt + ", Agasalho: " + hoodie;
 	}
 	
 	

@@ -11,32 +11,33 @@ public class Programa {
 
 	public static void main(String[] args) {
 
-		// Lista de abrigos autorizados e lista de espera
-		ArrayList<Abrigo> toAddShelters = new ArrayList<>();
-		ArrayList<Abrigo> trustedShelters = new ArrayList<>();
-		ArrayList<Pedido> orders = new ArrayList<>();
-
-		// Variaveis para a interface textual
-		int entry = -1;
-		int centerTab = -1;
-		int shelterTab = -1;
-
 		Scanner sc = new Scanner(System.in);
 
-		// Gerando centros de distribuição
+		ArrayList<Abrigo> toAddShelters = new ArrayList<>(); // LISTA ABRIGOS NA LISTA DE VALIDACAO
+		ArrayList<Abrigo> trustedShelters = new ArrayList<>(); // LISTA ABRIGOS VALIDADOS
+		ArrayList<Pedido> orders = new ArrayList<>(); // LISTA DE PEDIDOS
+		ArrayList<CentroDistribuicao> centers = new ArrayList<>();// LISTA CENTROS DE DISTRIUICAO
+		
 		CentroDistribuicao CD1 = new CentroDistribuicao("Centro de Distribuição Esperança", "Av. Boqueirão", 2450, "RS",
-				92032 - 420);
+				92032 - 420); // CENTRO DE DISTRIBUICAO
 		CentroDistribuicao CD2 = new CentroDistribuicao("Centro de Distribuição Prosperidade", "Av. Borges de Medeiros",
-				1501, "RS", 90119 - 900);
+				1501, "RS", 90119 - 900); // CENTRO DE DISTRIBUICAO
 		CentroDistribuicao CD3 = new CentroDistribuicao("Centro de Distribuição Reconstrução",
-				"R. Dr. Décio Martins Costa", 312, "RS", 94920 - 170);
+				"R. Dr. Décio Martins Costa", 312, "RS", 94920 - 170); // CENTRO DE DISTRIBUICAO
 
-		ArrayList<CentroDistribuicao> centers = new ArrayList<>();
+		Abrigo a1 = new Abrigo("Felicidade","Rua Nova Casa", "Joao", "(16) 91293-1092", "felicidadeabrigo@gmail.com", 100, 80);
+		Abrigo a2 = new Abrigo("Esperantina","Rua Brasil Raiz", "Maria", "(16) 91234-1897", "esperantinaabrigo@gmail.com", 150, 100);
+		Abrigo a3 = new Abrigo("Novissimo","Rua Governador", "Pedro", "(18) 96789-6970", "novissimoabrigo@gmail.com", 200, 120);
+		trustedShelters.add(a1);
+		trustedShelters.add(a2);
+		trustedShelters.add(a3);
+
 		centers.add(CD1);
 		centers.add(CD2);
 		centers.add(CD3);
 
-		// Interface textual
+		// INTERFACE
+		int entry = -1;
 		while (entry != 0) {
 
 			System.out.println("---------x-x-x---------\n" + "Oque voce eh ?\n " + "1 - Gerente \n "
@@ -45,10 +46,10 @@ public class Programa {
 			entry = sc.nextInt();
 			sc.nextLine();
 
-			// Sistema de menus
+			// SISTEMA DE MENUS
 			switch (entry) {
 
-			// AREA DO GERENTE
+			// ABA DO GERENTE
 			case 1:
 
 				handleManager(sc, toAddShelters, trustedShelters);
@@ -248,7 +249,7 @@ public class Programa {
 		centerTab = sc.nextInt();
 
 		switch (centerTab) {
-		// RECEBER LOTE	
+		// RECEBER LOTE
 		case 1:
 
 			centers.get(selectedCenter - 1).addItems();
@@ -256,29 +257,29 @@ public class Programa {
 			break;
 		// AUTORIZAR PEDIDO
 		case 2:
-			
+
 			for (Pedido p : orders) {
 				list += 1;
 				System.out.println(list + " - " + p);
 			}
-			
+
 			Integer selectedOrder = sc.nextInt();
 
 			// move o abrigo para a lista de abrigos autorizados e remove da lista de espera
 			orders.remove(selectedOrder - 1);
-			
+
 			break;
-		
+
 		// RECUSAR PEDIDO
 		case 3:
-			//==//
+			// ==//
 			break;
-			
+
 		// VER ESTOQUE
 		case 4:
-			//==//
+			// ==//
 			break;
-			
+
 		}
 
 	}
