@@ -6,6 +6,9 @@ import java.util.Scanner;
 import desafio.entities.Center;
 import desafio.entities.Order;
 import desafio.entities.Shelter;
+import desafio.products.Clothes;
+import desafio.products.Food;
+import desafio.products.Hygiene;
 
 public class Programa {
 
@@ -64,14 +67,14 @@ public class Programa {
 			// ABA CENTRO DE DISTRIBUICAO
 			case 2:
 
-				handleShelter(sc, toAddShelters, trustedShelters);
+				handleShelter(sc, toAddShelters, trustedShelters, orders);
 
 				break;
 
 			// ABA ABRIGOS
 			case 3:
 
-				handleCenter(sc, toAddShelters, trustedShelters);
+				handleCenter(sc, centers, orders);
 
 				break;
 			}
@@ -79,6 +82,7 @@ public class Programa {
 		sc.close();
 	}
 
+	// LOGICA DA ABA GERENTE
 	public static void handleManager(Scanner sc, ArrayList<Shelter> _toAddShelters,
 			ArrayList<Shelter> _trustedShelters) {
 
@@ -215,18 +219,20 @@ public class Programa {
 
 	}
 
-	public static void handleShelter(Scanner sc, ArrayList<Shelter> _toAddShelters, ArrayList<Shelter> _trustedShelters) {
+	// LOGICA DA ABA ABRIGO
+	public static void handleShelter(Scanner sc, ArrayList<Shelter> _toAddShelters, ArrayList<Shelter> _trustedShelters,
+			ArrayList<Order> _orders) {
 
 		int entry = -1;
 
 		Integer list = 1;
 		Shelter selectedShelter = null;
-		
+
 		while (entry != 0) {
-			
+
 			System.out.println("-x-x-x- Qual abrigo ? -x-x-x- \n");
 			list = 1;
-			
+
 			for (Shelter x : _trustedShelters) {
 
 				System.out.println(list + " - " + x);
@@ -235,15 +241,45 @@ public class Programa {
 			}
 
 			selectedShelter = _trustedShelters.get(sc.nextInt() - 1);
-			
+
 			System.out.println("-x-x-x- Olá, o que pretendes fazer ? -x-x-x- \n " + "1 - Solicitar doaçao \n "
-					+ "2 - Atualizar populacao \n " + "0 - Sair");
+					+ "2 - Atualizar populacao \n " + "3 - Ver inventario \n " + "0 - Sair");
+
+			entry = sc.nextInt();
 
 			switch (entry) {
-			
+
 			case 1:
-				
-				selectedShelter.addOrder(sc);
+
+				selectedShelter.addOrder(sc, _orders);
+				System.out.println(_orders);
+				entry = -1;
+
+				break;
+
+			case 2:
+
+				System.out.println("-x-x-x- Digite a nova ocupacao -x-x-x-" + "(" + selectedShelter.getOccupied() + "/"
+						+ selectedShelter.getCapacity() + ")");
+				selectedShelter.setOccupied(sc.nextInt());
+				System.out.println(selectedShelter);
+
+				break;
+
+			case 3:
+
+				System.out.println("Roupas: \n");
+				for (Clothes x : selectedShelter.getClothes()) {
+					System.out.println(x + "\n");
+				}
+				System.out.println("Comidas: \n");
+				for (Food x : selectedShelter.getFood()) {
+					System.out.println(x + "\n");
+				}
+				System.out.println("Higiene: \n");
+				for (Hygiene x : selectedShelter.getHygiene()) {
+					System.out.println(x + "\n");
+				}
 
 				break;
 
@@ -253,8 +289,79 @@ public class Programa {
 
 	}
 
-	public static void handleCenter(Scanner sc, ArrayList<Shelter> _toAddShelters,
-			ArrayList<Shelter> _trustedShelters) {
+	public static void handleCenter(Scanner sc, ArrayList<Center> _centers,
+			ArrayList<Order> _orders) {
+
+		int entry = 0;
+		int list = 1;
+
+		while (entry != 0) {
+
+			System.out.println("-x-x-x- Qual o centro ? -x-x-x- \n");
+			list = 1;
+
+			for (Center x : _centers) {
+
+				System.out.println(list + " - " + x);
+				list += 1;
+
+			}
+			
+			Center selectedCenter = _centers.get(sc.nextInt() - 1);
+
+			System.out.println("-x-x-x- Olá, o que pretendes fazer ? -x-x-x- \n " + "1 - Receber Doacao \n "
+					+ "2 - Ver pedidos \n " + "3 - Autorizar pedido  \n " + "4 - Recusar pedido \n "
+					+ "5 - Ver inventario \n " + "0 - Sair");
+
+			entry = sc.nextInt();
+			switch (entry) {
+
+			case 1:
+				
+				selectedCenter.addDonation(sc, selectedCenter.getClothes(), selectedCenter.getFood(), selectedCenter.getHygiene());
+				
+				break;
+				
+			case 2:
+				
+				
+				for(Order x : _orders) {
+					System.out.println(x + "\n");
+				}
+				
+				break;
+				
+			case 3:
+				
+				
+				
+				break;
+				
+			case 4:
+				
+				
+				
+				break;
+				
+			case 5:
+				
+				System.out.println("Roupas: \n");
+				for (Clothes x : selectedCenter.getClothes()) {
+					System.out.println(x + "\n");
+				}
+				System.out.println("Comidas: \n");
+				for (Food x : selectedCenter.getFood()) {
+					System.out.println(x + "\n");
+				}
+				System.out.println("Higiene: \n");
+				for (Hygiene x : selectedCenter.getHygiene()) {
+					System.out.println(x + "\n");
+				}
+				
+				
+				break;
+			}
+		}
 
 	}
 

@@ -1,20 +1,18 @@
 package desafio.products;
 
-import java.util.Date;
-
 public class Food {
 
 	String description;
-	String measure;
-	Date expiration;
+	FoodEnum measure;
+	String expiration;
 	int quantity;
 	
 	public Food() {}
 
-	public Food(String description, String measure, Date expiration, int quantity) {
+	public Food(String description, FoodEnum foodMeasure, String expiration, int quantity) {
 		super();
 		this.description = description;
-		this.measure = measure;
+		this.measure = foodMeasure;
 		this.expiration = expiration;
 		this.quantity = quantity;
 	}
@@ -27,19 +25,19 @@ public class Food {
 		this.description = description;
 	}
 
-	public String getMeasure() {
+	public FoodEnum getMeasure() {
 		return measure;
 	}
 
-	public void setMeasure(String measure) {
+	public void setMeasure(FoodEnum measure) {
 		this.measure = measure;
 	}
 
-	public Date getExpiration() {
+	public String getExpiration() {
 		return expiration;
 	}
 
-	public void setExpiration(Date expiration) {
+	public void setExpiration(String expiration) {
 		this.expiration = expiration;
 	}
 
@@ -53,8 +51,8 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return "Food [description=" + description + ", measure=" + measure + ", expiration=" + expiration
-				+ ", quantity=" + quantity + "]";
+		return "descricao: " + description + ", medida: " + measure + ", validade: " + expiration
+				+ ", qunatidade: " + quantity;
 	}
 	
 }

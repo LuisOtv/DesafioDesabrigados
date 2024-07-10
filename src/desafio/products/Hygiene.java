@@ -31,7 +31,7 @@ public class Hygiene {
 
 	@Override
 	public String toString() {
-		return "Hygiene [description=" + description + ", item=" + item + "]";
+		return "descricao: " + description + ", Item: " + item;
 	}
 
 	
