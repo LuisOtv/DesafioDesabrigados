@@ -69,11 +69,13 @@ public class Order {
 		this.shelter = shelter;
 	}
 
-
+	
 
 	@Override
 	public String toString() {
 		return "Pedido = \nRoupas: " + clothes + "\nComida: " + food + "\nHigiene: " + hygiene;
 	}
 	
-}
+		
+	}
+	

@@ -1,6 +1,7 @@
 package desafio.main;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import desafio.entities.Center;
@@ -75,7 +76,7 @@ public class Programa {
 			case 3:
 
 				handleCenter(sc, centers, orders);
-				
+
 				break;
 			}
 		}
@@ -98,6 +99,7 @@ public class Programa {
 					+ "5 - Remover Abrigo \n " + "0 - Sair");
 
 			entry = sc.nextInt();
+			sc.nextLine();
 			switch (entry) {
 
 			case 1:// ADICIONAR ABRIGO A LISTA DE ESPERA
@@ -199,6 +201,8 @@ public class Programa {
 
 			case 5: // REMOVER ABRIGO
 
+				list = 1;
+
 				System.out.println("-x-x-x- Qual desses abrigos pretende remover? -x-x-x-");
 
 				for (Shelter x : _trustedShelters) {
@@ -246,9 +250,10 @@ public class Programa {
 					+ "2 - Atualizar populacao \n " + "3 - Ver inventario \n " + "0 - Sair");
 
 			entry = sc.nextInt();
+			sc.nextLine();
 
 			switch (entry) {
-			
+
 			// SOLICITAR DOACAO
 			case 1:
 
@@ -257,17 +262,18 @@ public class Programa {
 				entry = -1;
 
 				break;
-				
+
 			// ATUALIZAR POPULACAO
 			case 2:
 
 				System.out.println("-x-x-x- Digite a nova ocupacao -x-x-x-" + "(" + selectedShelter.getOccupied() + "/"
 						+ selectedShelter.getCapacity() + ")");
 				selectedShelter.setOccupied(sc.nextInt());
+				sc.nextLine();
 				System.out.println(selectedShelter);
 
 				break;
-				
+
 			// VER INVENTARIO
 			case 3:
 
@@ -292,8 +298,7 @@ public class Programa {
 
 	}
 
-	public static void handleCenter(Scanner sc, ArrayList<Center> _centers,
-			ArrayList<Order> _orders) {
+	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<Order> _orders) {
 
 		int entry = -1;
 		int list = 1;
@@ -309,7 +314,7 @@ public class Programa {
 				list += 1;
 
 			}
-			
+
 			Center selectedCenter = _centers.get(sc.nextInt() - 1);
 
 			System.out.println("-x-x-x- Olá, o que pretendes fazer ? -x-x-x- \n " + "1 - Receber Doacao \n "
@@ -320,21 +325,76 @@ public class Programa {
 			switch (entry) {
 
 			case 1:
-				
-				selectedCenter.addDonation(sc, selectedCenter.getClothes(), selectedCenter.getFood(), selectedCenter.getHygiene());
-				
+
+				selectedCenter.addDonation(sc, selectedCenter.getClothes(), selectedCenter.getFood(),
+						selectedCenter.getHygiene());
+
 				break;
-				
+
 			case 2:
-				
-				
-				for(Order x : _orders) {
+
+				for (Order x : _orders) {
 					System.out.println(x + "\n");
 				}
-				
+
 				break;
-				
+
 			case 3:
+
+				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
+				list = 1;
+				for (Order x : _orders) {
+
+					System.out.println(list + " - " + x);
+					list += 1;
+
+				}
+
+				Order selectedOrder = _orders.get(sc.nextInt() - 1);
+
+				Iterator<Clothes> iterator = selectedCenter.getClothes().iterator();
+				while (iterator.hasNext()) {
+					Clothes x = iterator.next();
+					if (x.equals(selectedOrder.getClothes())) {
+						System.out.println("Roupa enviada");
+						selectedOrder.getShelter().getClothes().add(x);
+						iterator.remove();
+					}
+				}
+
+				Iterator<Food> foodIterator = selectedCenter.getFood().iterator();
+				while (foodIterator.hasNext()) {
+				    Food x = foodIterator.next();
+				    if (x.equals(selectedOrder.getFood())) {
+				        System.out.println("Comida enviada");
+				        selectedOrder.getShelter().getFood().add(x);
+				        foodIterator.remove();
+				        selectedOrder.setFood(null);
+				    }
+				}
+
+
+				Iterator<Hygiene> hygieneIterator = selectedCenter.getHygiene().iterator();
+				while (hygieneIterator.hasNext()) {
+				    Hygiene x = hygieneIterator.next();
+				    if (x.equals(selectedOrder.getHygiene())) {
+				        System.out.println("Produto de Higiene enviada");
+				        selectedOrder.getShelter().getHygiene().add(x);
+				        hygieneIterator.remove(); // Remove o elemento da lista de forma segura
+				        selectedOrder.setHygiene(null);
+				    }
+				}
+
+				
+				if (selectedOrder.getClothes() == null && selectedOrder.getFood() == null
+						&& selectedOrder.getHygiene() == null) {
+
+					selectedOrder = null;
+				}
+
+				break;
+
+			case 4:
 				
 				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
 				list = 1;
@@ -344,49 +404,13 @@ public class Programa {
 					list += 1;
 
 				}
-				
-				Order selectedOrder = _orders.get(sc.nextInt() - 1);
-				
-				for(Clothes x : selectedCenter.getClothes()) {
-					
-					if(x.equals(selectedOrder.getClothes())) {
-						
-						System.out.println("Roupa enviada");
-						
-					}
-					
-				}
 
-				for(Food x : selectedCenter.getFood()) {
-					
-					if(x.equals(selectedOrder.getFood())) {
-						
-						System.out.println("Comida enviada");
-						
-					}
-					
-				}
-				
-				for(Hygiene x : selectedCenter.getHygiene()) {
-					
-					if(x.equals(selectedOrder.getHygiene())) {
-						
-						System.out.println("Produto de Higiene enviada");
-						
-					}
-					
-				}
+				System.out.println("-x-x-x- Removido -x-x-x-");
 				
 				break;
-				
-			case 4:
-				
-				
-				
-				break;
-				
+
 			case 5:
-				
+
 				System.out.println("Roupas: \n");
 				for (Clothes x : selectedCenter.getClothes()) {
 					System.out.println(x + "\n");
@@ -399,8 +423,7 @@ public class Programa {
 				for (Hygiene x : selectedCenter.getHygiene()) {
 					System.out.println(x + "\n");
 				}
-				
-				
+
 				break;
 			}
 		}
