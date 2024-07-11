@@ -1,5 +1,7 @@
 package desafio.products;
 
+import java.util.Objects;
+
 public class Food {
 
 	String description;
@@ -54,5 +56,25 @@ public class Food {
 		return "descricao: " + description + ", medida: " + measure + ", validade: " + expiration
 				+ ", qunatidade: " + quantity;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, expiration, measure, quantity);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Food other = (Food) obj;
+		return Objects.equals(description, other.description) && Objects.equals(expiration, other.expiration)
+				&& measure == other.measure && quantity == other.quantity;
+	}
+	
+	
 	
 }

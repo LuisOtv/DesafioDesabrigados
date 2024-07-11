@@ -20,6 +20,56 @@ public class Order {
 		this.shelter = shelter;
 	
 	}
+	
+	
+
+	public Clothes getClothes() {
+		return clothes;
+	}
+
+
+
+	public void setClothes(Clothes clothes) {
+		this.clothes = clothes;
+	}
+
+
+
+	public Food getFood() {
+		return food;
+	}
+
+
+
+	public void setFood(Food food) {
+		this.food = food;
+	}
+
+
+
+	public Hygiene getHygiene() {
+		return hygiene;
+	}
+
+
+
+	public void setHygiene(Hygiene hygiene) {
+		this.hygiene = hygiene;
+	}
+
+
+
+	public Shelter getShelter() {
+		return shelter;
+	}
+
+
+
+	public void setShelter(Shelter shelter) {
+		this.shelter = shelter;
+	}
+
+
 
 	@Override
 	public String toString() {

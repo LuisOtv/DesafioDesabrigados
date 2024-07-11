@@ -64,18 +64,18 @@ public class Programa {
 
 				break;
 
-			// ABA CENTRO DE DISTRIBUICAO
+			// ABA ABRIGOS
 			case 2:
 
 				handleShelter(sc, toAddShelters, trustedShelters, orders);
 
 				break;
 
-			// ABA ABRIGOS
+			// ABA CENTRO DE DISTRIBUICAO
 			case 3:
 
 				handleCenter(sc, centers, orders);
-
+				
 				break;
 			}
 		}
@@ -248,7 +248,8 @@ public class Programa {
 			entry = sc.nextInt();
 
 			switch (entry) {
-
+			
+			// SOLICITAR DOACAO
 			case 1:
 
 				selectedShelter.addOrder(sc, _orders);
@@ -256,7 +257,8 @@ public class Programa {
 				entry = -1;
 
 				break;
-
+				
+			// ATUALIZAR POPULACAO
 			case 2:
 
 				System.out.println("-x-x-x- Digite a nova ocupacao -x-x-x-" + "(" + selectedShelter.getOccupied() + "/"
@@ -265,7 +267,8 @@ public class Programa {
 				System.out.println(selectedShelter);
 
 				break;
-
+				
+			// VER INVENTARIO
 			case 3:
 
 				System.out.println("Roupas: \n");
@@ -292,12 +295,12 @@ public class Programa {
 	public static void handleCenter(Scanner sc, ArrayList<Center> _centers,
 			ArrayList<Order> _orders) {
 
-		int entry = 0;
+		int entry = -1;
 		int list = 1;
 
 		while (entry != 0) {
 
-			System.out.println("-x-x-x- Qual o centro ? -x-x-x- \n");
+			System.out.println("-x-x-x- Qual o centro ? -x-x-x-");
 			list = 1;
 
 			for (Center x : _centers) {
@@ -333,7 +336,46 @@ public class Programa {
 				
 			case 3:
 				
+				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
+				list = 1;
+				for (Order x : _orders) {
+
+					System.out.println(list + " - " + x);
+					list += 1;
+
+				}
 				
+				Order selectedOrder = _orders.get(sc.nextInt() - 1);
+				
+				for(Clothes x : selectedCenter.getClothes()) {
+					
+					if(x.equals(selectedOrder.getClothes())) {
+						
+						System.out.println("Roupa enviada");
+						
+					}
+					
+				}
+
+				for(Food x : selectedCenter.getFood()) {
+					
+					if(x.equals(selectedOrder.getFood())) {
+						
+						System.out.println("Comida enviada");
+						
+					}
+					
+				}
+				
+				for(Hygiene x : selectedCenter.getHygiene()) {
+					
+					if(x.equals(selectedOrder.getHygiene())) {
+						
+						System.out.println("Produto de Higiene enviada");
+						
+					}
+					
+				}
 				
 				break;
 				

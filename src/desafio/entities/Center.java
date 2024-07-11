@@ -97,8 +97,9 @@ public class Center {
 	public void setFood(ArrayList<Food> food) {
 		this.food = food;
 	}
-	
-	public void addDonation(Scanner sc, ArrayList<Clothes> _clothes, ArrayList<Food> _food, ArrayList<Hygiene> _hygiene) {
+
+	public void addDonation(Scanner sc, ArrayList<Clothes> _clothes, ArrayList<Food> _food,
+			ArrayList<Hygiene> _hygiene) {
 
 		Clothes c = new Clothes();
 		Food f = new Food();
@@ -107,11 +108,12 @@ public class Center {
 		int entry = -1;
 
 		while (entry != 4) {
-			
+
 			System.out.println(
 					"-x-x-x- Qual desses itens foram recebidos ? -x-x-x- \n 1 - Roupas\n 2 - Comida\n 3 - Higiene\n 4 - Finalizar \n 0 - Cancelar");
-					entry = sc.nextInt(); sc.nextLine();
-					
+			entry = sc.nextInt();
+			sc.nextLine();
+
 			switch (entry) {
 
 			case 1:
@@ -123,9 +125,10 @@ public class Center {
 				String clothesDesciption = sc.nextLine().toLowerCase();
 
 				System.out.println("-x-x-x- Qual o genero da roupa? -x-x-x- \n 1 - M \n 2 - F");
-				
-				entry = sc.nextInt(); sc.nextLine();
-				
+
+				entry = sc.nextInt();
+				sc.nextLine();
+
 				if (entry == 1) {
 
 					clothesGender = ClothesEnum.MASC;
@@ -136,33 +139,34 @@ public class Center {
 
 				}
 
-				System.out.println("-x-x-x- Qual o tamanho da roupa? -x-x-x-");
-				
-				entry = sc.nextInt(); sc.nextLine();
+				System.out.println("-x-x-x- Qual o tamanho da roupa? -x-x-x- \n 1 - PP \n 2 - P \n 3 - M \n 4 - G \n 5 - GG");
 
-				if (entry == 1) {
+				int size = sc.nextInt();
+				sc.nextLine();
+
+				if (size == 1) {
 
 					clothesSize = ClothesEnum.P;
 
-				} else if (entry == 2) {
+				} else if (size == 2) {
 
 					clothesSize = ClothesEnum.PP;
 
-				} else if (entry == 3) {
+				} else if (size == 3) {
 
 					clothesSize = ClothesEnum.M;
 
-				} else if (entry == 4) {
+				} else if (size == 4) {
 
 					clothesSize = ClothesEnum.G;
 
-				} else if (entry == 5) {
+				} else if (size == 5) {
 
 					clothesSize = ClothesEnum.GG;
 
 				}
 
-				c = new Clothes(clothesDesciption, clothesGender, clothesSize);
+				c = new Clothes(clothesDesciption, clothesSize, clothesGender);
 
 				break;
 
@@ -174,8 +178,9 @@ public class Center {
 				String foodDescription = sc.nextLine().toLowerCase();
 
 				System.out.println("-x-x-x- Qual a medida da comida? -x-x-x-\n 1 - KG\n 2 - L \n");
-				
-				entry = sc.nextInt(); sc.nextLine();
+
+				entry = sc.nextInt();
+				sc.nextLine();
 
 				if (entry == 1) {
 
@@ -206,8 +211,9 @@ public class Center {
 
 				System.out.println(
 						"-x-x-x- Qual o item? -x-x-x-\n 1 - Sabao\n 2 - Escova \n 3 - Pasta \n 4 - Absorvente");
-				
-				entry = sc.nextInt(); sc.nextLine();
+
+				entry = sc.nextInt();
+				sc.nextLine();
 
 				if (entry == 1) {
 
@@ -232,15 +238,24 @@ public class Center {
 				break;
 
 			case 4:
-
+				
+				if(c.getDescription() != null) {
 				_clothes.add(c);
+				}
+				if(f.getDescription() != null) {
 				_food.add(f);
+				}
+				if(h.getDescription() != null) {
 				_hygiene.add(h);
-
+				}
 			}
-			
+
 		}
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

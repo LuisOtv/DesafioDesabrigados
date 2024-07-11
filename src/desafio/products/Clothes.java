@@ -1,5 +1,7 @@
 package desafio.products;
 
+import java.util.Objects;
+
 public class Clothes{
 	
 	String description;
@@ -42,6 +44,23 @@ public class Clothes{
 	@Override
 	public String toString() {
 		return "descriçao: " + description + ", tamanho: " + size + ", genero: " + gender;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, gender, size);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Clothes other = (Clothes) obj;
+		return Objects.equals(description, other.description) && gender == other.gender && size == other.size;
 	}
 
 	

@@ -162,33 +162,33 @@ public class Shelter {
 
 				}
 
-				System.out.println("-x-x-x- Qual o tamanho da roupa? -x-x-x-");
+				System.out.println("-x-x-x- Qual o tamanho da roupa? -x-x-x- \n 1 - PP \n 2 - P \n 3 - M \n 4 - G \n 5 - GG");
 				
-				entry = sc.nextInt(); sc.nextLine();
+				int size = sc.nextInt(); sc.nextLine();
 
-				if (entry == 1) {
+				if (size == 1) {
 
 					clothesSize = ClothesEnum.P;
 
-				} else if (entry == 2) {
+				} else if (size == 2) {
 
 					clothesSize = ClothesEnum.PP;
 
-				} else if (entry == 3) {
+				} else if (size == 3) {
 
 					clothesSize = ClothesEnum.M;
 
-				} else if (entry == 4) {
+				} else if (size == 4) {
 
 					clothesSize = ClothesEnum.G;
 
-				} else if (entry == 5) {
+				} else if (size == 5) {
 
 					clothesSize = ClothesEnum.GG;
 
 				}
 
-				c = new Clothes(clothesDesciption, clothesGender, clothesSize);
+				c = new Clothes(clothesDesciption, clothesSize, clothesGender);
 
 				break;
 
