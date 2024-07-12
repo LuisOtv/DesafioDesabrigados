@@ -26,15 +26,15 @@ public class Center {
 	private Integer id;
 
 	// Informacoes gerais
-	String name;
-	String address;
-	Integer number;
-	String state;
-	Integer cep;
+	private String name;
+	private String address;
+	private Integer number;
+	private String state;
+	private Integer cep;
 
-	ArrayList<Clothes> clothes = new ArrayList<>();
-	ArrayList<Hygiene> hygiene = new ArrayList<>();
-	ArrayList<Food> food = new ArrayList<>();
+	private ArrayList<Clothes> clothes = new ArrayList<>();
+	private ArrayList<Hygiene> hygiene = new ArrayList<>();
+	private ArrayList<Food> food = new ArrayList<>();
 
 	public Center() {
 	}

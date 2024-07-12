@@ -14,10 +14,10 @@ public class Food {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	String description;
-	FoodEnum measure;
-	String expiration;
-	int quantity;
+	private String description;
+	private FoodEnum measure;
+	private String expiration;
+	private int quantity;
 	
 	public Food() {}
 

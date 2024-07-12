@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import desafio.entities.Center;
-import desafio.entities.Order;
+import desafio.entities.OrderRequest;
 import desafio.entities.Shelter;
 import desafio.products.Clothes;
 import desafio.products.Food;
@@ -23,7 +23,7 @@ public class Programa {
 
 		ArrayList<Shelter> toAddShelters = new ArrayList<>(); // LISTA ABRIGOS NA LISTA DE VALIDACAO
 		ArrayList<Shelter> trustedShelters = new ArrayList<>(); // LISTA ABRIGOS VALIDADOS
-		ArrayList<Order> orders = new ArrayList<>(); // LISTA DE PEDIDOS
+		ArrayList<OrderRequest> orders = new ArrayList<>(); // LISTA DE PEDIDOS
 		ArrayList<Center> centers = new ArrayList<>();// LISTA CENTROS DE DISTRIUICAO
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("desafiodesabrigados");
@@ -78,14 +78,14 @@ public class Programa {
 			// ABA DO GERENTE
 			case 1:
 
-				handleManager(sc, toAddShelters, trustedShelters);
+				handleManager(sc, toAddShelters, trustedShelters, em);
 
 				break;
 
 			// ABA ABRIGOS
 			case 2:
 
-				handleShelter(sc, toAddShelters, trustedShelters, orders);
+				handleShelter(sc, toAddShelters, trustedShelters, orders, em);
 
 				break;
 
@@ -102,7 +102,7 @@ public class Programa {
 
 	// LOGICA DA ABA GERENTE
 	public static void handleManager(Scanner sc, ArrayList<Shelter> _toAddShelters,
-			ArrayList<Shelter> _trustedShelters) {
+			ArrayList<Shelter> _trustedShelters, EntityManager em) {
 
 		int entry = -1;
 
@@ -146,6 +146,10 @@ public class Programa {
 						shelterCapacity, shelterOccupation);
 
 				_toAddShelters.add(s);
+
+				em.getTransaction().begin();
+				em.persist(s);
+				em.getTransaction().commit();
 
 				System.out.println("-x-x-x- Obrigado, os dados enviados para um de nossos colaboradores. -x-x-x-");
 
@@ -242,7 +246,7 @@ public class Programa {
 
 	// LOGICA DA ABA ABRIGO
 	public static void handleShelter(Scanner sc, ArrayList<Shelter> _toAddShelters, ArrayList<Shelter> _trustedShelters,
-			ArrayList<Order> _orders) {
+			ArrayList<OrderRequest> _orders, EntityManager em) {
 
 		int entry = -1;
 
@@ -274,7 +278,7 @@ public class Programa {
 			// SOLICITAR DOACAO
 			case 1:
 
-				selectedShelter.addOrder(sc, _orders);
+				selectedShelter.addOrder(sc, _orders, em);
 				System.out.println(_orders);
 				entry = -1;
 
@@ -315,7 +319,7 @@ public class Programa {
 
 	}
 
-	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<Order> _orders) {
+	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<OrderRequest> _orders) {
 
 		int entry = -1;
 		int list = 1;
@@ -350,7 +354,7 @@ public class Programa {
 
 			case 2:
 
-				for (Order x : _orders) {
+				for (OrderRequest x : _orders) {
 					System.out.println(x + "\n");
 				}
 
@@ -360,14 +364,14 @@ public class Programa {
 
 				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
 				list = 1;
-				for (Order x : _orders) {
+				for (OrderRequest x : _orders) {
 
 					System.out.println(list + " - " + x);
 					list += 1;
 
 				}
 
-				Order selectedOrder = _orders.get(sc.nextInt() - 1);
+				OrderRequest selectedOrder = _orders.get(sc.nextInt() - 1);
 
 				Iterator<Clothes> iterator = selectedCenter.getClothes().iterator();
 				while (iterator.hasNext()) {
@@ -415,7 +419,7 @@ public class Programa {
 				
 				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
 				list = 1;
-				for (Order x : _orders) {
+				for (OrderRequest x : _orders) {
 
 					System.out.println(list + " - " + x);
 					list += 1;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,17 +23,17 @@ public class Shelter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	String name;
-	String address;
-	String manager;
-	String phone;
-	String email;
-	Integer capacity;
-	Integer occupied;
+	private String name;
+	private String address;
+	private String manager;
+	private String phone;
+	private String email;
+	private Integer capacity;
+	private Integer occupied;
 
-	ArrayList<Clothes> clothes = new ArrayList<>();
-	ArrayList<Hygiene> hygiene = new ArrayList<>();
-	ArrayList<Food> food = new ArrayList<>();
+	private ArrayList<Clothes> clothes = new ArrayList<>();
+	private ArrayList<Hygiene> hygiene = new ArrayList<>();
+	private ArrayList<Food> food = new ArrayList<>();
 
 	public Shelter() {
 	}
@@ -135,7 +136,7 @@ public class Shelter {
 		return "Nome: " + name + " (" + (occupied * 100 / capacity) + "%)";
 	}
 
-	public void addOrder(Scanner sc, ArrayList<Order> orders) {
+	public void addOrder(Scanner sc, ArrayList<OrderRequest> orders, EntityManager em) {
 
 		Clothes c = new Clothes();
 		Food f = new Food();
@@ -270,8 +271,12 @@ public class Shelter {
 
 			case 4:
 
-				Order o = new Order(null, c, f, h, this);
-
+				OrderRequest o = new OrderRequest(null, c, f, h, this);
+				
+				em.getTransaction().begin();
+				em.persist(o);
+				em.getTransaction().commit();
+				
 				orders.add(o);
 
 			}

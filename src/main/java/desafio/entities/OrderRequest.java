@@ -1,11 +1,10 @@
 package desafio.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import desafio.products.Clothes;
@@ -13,26 +12,25 @@ import desafio.products.Food;
 import desafio.products.Hygiene;
 
 @Entity
-public class Order {
+public class OrderRequest {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@ManyToOne
-    @JoinColumn(name = "clothes_id")
+
+	@OneToOne(cascade = CascadeType.ALL)
     private Clothes clothes;
-	@ManyToOne
-    @JoinColumn(name = "food_id")
+	
+	@OneToOne(cascade = CascadeType.ALL)
     private Food food;
-	@ManyToOne
-    @JoinColumn(name = "hygiene_id")
+	
+	@OneToOne(cascade = CascadeType.ALL)
     private Hygiene hygiene;
-	@OneToOne
-    @JoinColumn(name = "shelter_id")
+	
+	@OneToOne(cascade = CascadeType.ALL)
     private Shelter shelter;
 	
-	public Order(Integer id, Clothes clothes,  Food food, Hygiene hygiene, Shelter shelter) {
+	public OrderRequest(Integer id, Clothes clothes,  Food food, Hygiene hygiene, Shelter shelter) {
 		super();
 		this.id = id;
 		this.clothes = clothes;
