@@ -1,1 +1,1 @@
-![alt text](https://picsum.photos/460/300](https://media.tenor.com/qJRMLPlR3_8AAAAi/maxwell-cat.gif)
+![alt text](https://media.tenor.com/IM836m7kzcQAAAAi/spinning-cat.gif)
