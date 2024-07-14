@@ -92,7 +92,7 @@ public class Programa {
 			// ABA CENTRO DE DISTRIBUICAO
 			case 3:
 
-				handleCenter(sc, centers, orders);
+				handleCenter(sc, centers, orders, em);
 
 				break;
 			}
@@ -319,7 +319,7 @@ public class Programa {
 
 	}
 
-	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<OrderRequest> _orders) {
+	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<OrderRequest> _orders, EntityManager em) {
 
 		int entry = -1;
 		int list = 1;
@@ -401,7 +401,7 @@ public class Programa {
 				    if (x.equals(selectedOrder.getHygiene())) {
 				        System.out.println("Produto de Higiene enviada");
 				        selectedOrder.getShelter().getHygiene().add(x);
-				        hygieneIterator.remove(); // Remove o elemento da lista de forma segura
+				        hygieneIterator.remove();
 				        selectedOrder.setHygiene(null);
 				    }
 				}
@@ -425,7 +425,13 @@ public class Programa {
 					list += 1;
 
 				}
+				
+				OrderRequest selectedOrder1 = _orders.get(sc.nextInt() - 1);
 
+				em.getTransaction().begin();
+				em.remove(selectedOrder1);
+				em.getTransaction().commit();
+				
 				System.out.println("-x-x-x- Removido -x-x-x-");
 				
 				break;

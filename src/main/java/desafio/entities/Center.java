@@ -261,6 +261,8 @@ public class Center {
 				}
 				if(h.getDescription() != null) {
 				_hygiene.add(h);
+				
+				
 				}
 			}
 
