@@ -6,12 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import desafio.products.Clothes;
 import desafio.products.Food;
 import desafio.products.Hygiene;
 
 @Entity
+@Table(name = "tb_orders")
 public class OrderRequest {
 	
 	@Id
@@ -29,6 +31,8 @@ public class OrderRequest {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     private Shelter shelter;
+	
+	public OrderRequest(){}
 	
 	public OrderRequest(Integer id, Clothes clothes,  Food food, Hygiene hygiene, Shelter shelter) {
 		super();
@@ -92,7 +96,7 @@ public class OrderRequest {
 
 	@Override
 	public String toString() {
-		return "Pedido = \nRoupas: " + clothes + "\nComida: " + food + "\nHigiene: " + hygiene;
+		return "Pedido: \nRoupas: " + clothes + "\nComida: " + food + "\nHigiene: " + hygiene;
 	}
 	
 		

@@ -4,7 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -18,11 +17,11 @@ import desafio.entities.Center;
 import desafio.entities.OrderRequest;
 import desafio.entities.Shelter;
 import desafio.products.Clothes;
-import desafio.products.ClothesEnum;
 import desafio.products.Food;
-import desafio.products.FoodEnum;
 import desafio.products.Hygiene;
-import desafio.products.HygieneEnum;
+import desafio.products.enums.ClothesEnum;
+import desafio.products.enums.FoodEnum;
+import desafio.products.enums.HygieneEnum;
 
 public class Programa {
 
@@ -60,7 +59,8 @@ public class Programa {
 		centers.add(CD1);
 		centers.add(CD2);
 		centers.add(CD3);
-
+		
+		
 		em.getTransaction().begin();
 		em.persist(CD1);
 		em.persist(CD2);
@@ -110,10 +110,9 @@ public class Programa {
 				String[] data;
 
 				try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
-					reader.readNext(); // skip header line if exists
+					reader.readNext(); 
 
 					while ((data = reader.readNext()) != null) {
-						// Extract data from CSV row
 						String clothesDescription = data[1];
 						ClothesEnum clothesSize = ClothesEnum.valueOf(data[2]);
 						ClothesEnum clothesGender = ClothesEnum.valueOf(data[3]);
@@ -124,16 +123,12 @@ public class Programa {
 						String hygieneDescription = data[8];
 						HygieneEnum hygieneItem = HygieneEnum.valueOf(data[9]);
 
-						// Generate random shelter number between 1 and 3
-						Random random = new Random();
-
-						// Create objects using constructors
+						
 						Clothes clothes = new Clothes(null, clothesDescription, clothesSize, clothesGender);
 						Food food = new Food(null, foodDescription, foodMeasure, foodExpiration, foodQuantity);
 						Hygiene hygiene = new Hygiene(null, hygieneDescription, hygieneItem);
-						Shelter shelter = trustedShelters.get(0); // Assuming Shelter class and constructor
+						Shelter shelter = trustedShelters.get(0); 
 
-						// Create OrderRequest object
 						OrderRequest orderRequest = new OrderRequest(null, clothes, food, hygiene, shelter);
 						orders.add(orderRequest);
 						
@@ -141,7 +136,6 @@ public class Programa {
 						em.persist(orderRequest);
 						em.getTransaction().commit();
 						
-						// Use the orderRequest object as needed
 						System.out.println("Created OrderRequest: " + orderRequest);
 					}
 				} catch (IOException | CsvValidationException e) {

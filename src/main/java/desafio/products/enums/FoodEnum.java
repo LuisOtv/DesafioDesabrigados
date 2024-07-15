@@ -1,4 +1,4 @@
-package desafio.products;
+package desafio.products.enums;
 
 public enum FoodEnum {
 	

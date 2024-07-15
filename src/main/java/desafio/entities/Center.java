@@ -10,15 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import desafio.products.Clothes;
-import desafio.products.ClothesEnum;
 import desafio.products.Food;
-import desafio.products.FoodEnum;
 import desafio.products.Hygiene;
-import desafio.products.HygieneEnum;
+import desafio.products.enums.ClothesEnum;
+import desafio.products.enums.FoodEnum;
+import desafio.products.enums.HygieneEnum;
 
 
 @Entity
-@Table(name = "DistributionCenters")
+@Table(name = "tb_distribution_centers")
 public class Center {
 	
 	@Id

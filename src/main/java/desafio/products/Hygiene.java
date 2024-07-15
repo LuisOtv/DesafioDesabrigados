@@ -6,8 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import desafio.products.enums.HygieneEnum;
 
 @Entity
+@Table(name = "tb_hygiene")
 public class Hygiene {
 	
 	@Id
