@@ -1,19 +1,28 @@
 package desafio.main;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import desafio.entities.Center;
 import desafio.entities.OrderRequest;
 import desafio.entities.Shelter;
 import desafio.products.Clothes;
+import desafio.products.ClothesEnum;
 import desafio.products.Food;
+import desafio.products.FoodEnum;
 import desafio.products.Hygiene;
+import desafio.products.HygieneEnum;
 
 public class Programa {
 
@@ -25,25 +34,24 @@ public class Programa {
 		ArrayList<Shelter> trustedShelters = new ArrayList<>(); // LISTA ABRIGOS VALIDADOS
 		ArrayList<OrderRequest> orders = new ArrayList<>(); // LISTA DE PEDIDOS
 		ArrayList<Center> centers = new ArrayList<>();// LISTA CENTROS DE DISTRIUICAO
-		
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("desafiodesabrigados");
 		EntityManager em = emf.createEntityManager();
-		
 
-		Center CD1 = new Center(null,"Centro de Distribuição Esperança", "Av. Boqueirão", 2450, "RS", 92032 - 420); // CENTRO
-																												// DE
-																												// DISTRIBUICAO
-		Center CD2 = new Center(null,"Centro de Distribuição Prosperidade", "Av. Borges de Medeiros", 1501, "RS",
+		Center CD1 = new Center(null, "Centro de Distribuição Esperança", "Av. Boqueirão", 2450, "RS", 92032 - 420); // CENTRO
+		// DE
+		// DISTRIBUICAO
+		Center CD2 = new Center(null, "Centro de Distribuição Prosperidade", "Av. Borges de Medeiros", 1501, "RS",
 				90119 - 900); // CENTRO DE DISTRIBUICAO
-		Center CD3 = new Center(null,"Centro de Distribuição Reconstrução", "R. Dr. Décio Martins Costa", 312, "RS",
+		Center CD3 = new Center(null, "Centro de Distribuição Reconstrução", "R. Dr. Décio Martins Costa", 312, "RS",
 				94920 - 170); // CENTRO DE DISTRIBUICAO
 
-		Shelter a1 = new Shelter(null, "Felicidade", "Rua Nova Casa", "Joao", "(16) 91293-1092", "felicidadeabrigo@gmail.com",
-				100, 80);
+		Shelter a1 = new Shelter(null, "Felicidade", "Rua Nova Casa", "Joao", "(16) 91293-1092",
+				"felicidadeabrigo@gmail.com", 100, 80);
 		Shelter a2 = new Shelter(null, "Esperantina", "Rua Brasil Raiz", "Maria", "(16) 91234-1897",
 				"esperantinaabrigo@gmail.com", 150, 100);
-		Shelter a3 = new Shelter(null, "Novissimo", "Rua Governador", "Pedro", "(18) 96789-6970", "novissimoabrigo@gmail.com",
-				200, 120);
+		Shelter a3 = new Shelter(null, "Novissimo", "Rua Governador", "Pedro", "(18) 96789-6970",
+				"novissimoabrigo@gmail.com", 200, 120);
 
 		toAddShelters.add(a1);
 		toAddShelters.add(a2);
@@ -61,13 +69,13 @@ public class Programa {
 		em.persist(a2);
 		em.persist(a3);
 		em.getTransaction().commit();
-		
+
 		// INTERFACE
 		int entry = -1;
 		while (entry != 0) {
 
 			System.out.println("-x-x-x- Oque você é ? -x-x-x- \n " + "1 - Gerente \n " + "2 - Abrigo \n "
-					+ "3 - Centro de Dis. \n " + "0 - Sair");
+					+ "3 - Centro de Dis. \n " + "4 - Ler CSV \n " + "0 - Sair");
 
 			entry = sc.nextInt();
 			sc.nextLine();
@@ -95,14 +103,62 @@ public class Programa {
 				handleCenter(sc, centers, orders, em);
 
 				break;
+
+			case 4:
+
+				String csvFile = "src/main/java/orders.csv";
+				String[] data;
+
+				try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
+					reader.readNext(); // skip header line if exists
+
+					while ((data = reader.readNext()) != null) {
+						// Extract data from CSV row
+						String clothesDescription = data[1];
+						ClothesEnum clothesSize = ClothesEnum.valueOf(data[2]);
+						ClothesEnum clothesGender = ClothesEnum.valueOf(data[3]);
+						String foodDescription = data[4];
+						FoodEnum foodMeasure = FoodEnum.valueOf(data[5]);
+						String foodExpiration = data[6];
+						int foodQuantity = Integer.parseInt(data[7]);
+						String hygieneDescription = data[8];
+						HygieneEnum hygieneItem = HygieneEnum.valueOf(data[9]);
+
+						// Generate random shelter number between 1 and 3
+						Random random = new Random();
+
+						// Create objects using constructors
+						Clothes clothes = new Clothes(null, clothesDescription, clothesSize, clothesGender);
+						Food food = new Food(null, foodDescription, foodMeasure, foodExpiration, foodQuantity);
+						Hygiene hygiene = new Hygiene(null, hygieneDescription, hygieneItem);
+						Shelter shelter = trustedShelters.get(0); // Assuming Shelter class and constructor
+
+						// Create OrderRequest object
+						OrderRequest orderRequest = new OrderRequest(null, clothes, food, hygiene, shelter);
+						orders.add(orderRequest);
+						
+						em.getTransaction().begin();
+						em.persist(orderRequest);
+						em.getTransaction().commit();
+						
+						// Use the orderRequest object as needed
+						System.out.println("Created OrderRequest: " + orderRequest);
+					}
+				} catch (IOException | CsvValidationException e) {
+					e.printStackTrace();
+				}
+				break;
+
 			}
+
 		}
 		sc.close();
+
 	}
 
 	// LOGICA DA ABA GERENTE
-	public static void handleManager(Scanner sc, ArrayList<Shelter> _toAddShelters,
-			ArrayList<Shelter> _trustedShelters, EntityManager em) {
+	public static void handleManager(Scanner sc, ArrayList<Shelter> _toAddShelters, ArrayList<Shelter> _trustedShelters,
+			EntityManager em) {
 
 		int entry = -1;
 
@@ -319,7 +375,8 @@ public class Programa {
 
 	}
 
-	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<OrderRequest> _orders, EntityManager em) {
+	public static void handleCenter(Scanner sc, ArrayList<Center> _centers, ArrayList<OrderRequest> _orders,
+			EntityManager em) {
 
 		int entry = -1;
 		int list = 1;
@@ -385,28 +442,26 @@ public class Programa {
 
 				Iterator<Food> foodIterator = selectedCenter.getFood().iterator();
 				while (foodIterator.hasNext()) {
-				    Food x = foodIterator.next();
-				    if (x.equals(selectedOrder.getFood())) {
-				        System.out.println("Comida enviada");
-				        selectedOrder.getShelter().getFood().add(x);
-				        foodIterator.remove();
-				        selectedOrder.setFood(null);
-				    }
+					Food x = foodIterator.next();
+					if (x.equals(selectedOrder.getFood())) {
+						System.out.println("Comida enviada");
+						selectedOrder.getShelter().getFood().add(x);
+						foodIterator.remove();
+						selectedOrder.setFood(null);
+					}
 				}
-
 
 				Iterator<Hygiene> hygieneIterator = selectedCenter.getHygiene().iterator();
 				while (hygieneIterator.hasNext()) {
-				    Hygiene x = hygieneIterator.next();
-				    if (x.equals(selectedOrder.getHygiene())) {
-				        System.out.println("Produto de Higiene enviada");
-				        selectedOrder.getShelter().getHygiene().add(x);
-				        hygieneIterator.remove();
-				        selectedOrder.setHygiene(null);
-				    }
+					Hygiene x = hygieneIterator.next();
+					if (x.equals(selectedOrder.getHygiene())) {
+						System.out.println("Produto de Higiene enviada");
+						selectedOrder.getShelter().getHygiene().add(x);
+						hygieneIterator.remove();
+						selectedOrder.setHygiene(null);
+					}
 				}
 
-				
 				if (selectedOrder.getClothes() == null && selectedOrder.getFood() == null
 						&& selectedOrder.getHygiene() == null) {
 
@@ -416,7 +471,7 @@ public class Programa {
 				break;
 
 			case 4:
-				
+
 				System.out.println("-x-x-x- Qual o pedido ? -x-x-x- \n");
 				list = 1;
 				for (OrderRequest x : _orders) {
@@ -425,15 +480,15 @@ public class Programa {
 					list += 1;
 
 				}
-				
+
 				OrderRequest selectedOrder1 = _orders.get(sc.nextInt() - 1);
 
 				em.getTransaction().begin();
 				em.remove(selectedOrder1);
 				em.getTransaction().commit();
-				
+
 				System.out.println("-x-x-x- Removido -x-x-x-");
-				
+
 				break;
 
 			case 5:
